@@ -14,7 +14,7 @@ class CategoryController:
       return jsonify([json_encode(category) for category in categories])
 
     except:
-      return {'message': 'An error occured'}, 500
+      return {'message': 'An error occurred'}, 500
 
   @staticmethod
   def get_one_category(db, id):
@@ -22,7 +22,7 @@ class CategoryController:
       category = db.categories.find_one({'_id': ObjectId(id)})
       return jsonify(json_encode(category))
     except:
-      return {'message': 'An error occured'}, 500
+      return {'message': 'An error occurred'}, 500
     
 
   @staticmethod
@@ -36,7 +36,7 @@ class CategoryController:
       return jsonify(json_encode(category))
 
     except:
-      return {'message': 'An error occured'}, 500
+      return {'message': 'An error occurred'}, 500
 
 
   @staticmethod
@@ -52,7 +52,7 @@ class CategoryController:
       return jsonify(json_encode(category))
 
     except:
-      return {'message': 'An error occured'}, 500
+      return {'message': 'An error occurred'}, 500
   
   @staticmethod
   def delete_category(db, id):
@@ -64,4 +64,4 @@ class CategoryController:
       }
     
     except:
-      return {'message': 'An error occured'}, 500
+      return {'message': 'An error occurred'}, 500
