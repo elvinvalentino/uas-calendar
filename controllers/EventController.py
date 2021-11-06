@@ -29,7 +29,6 @@ class EventController:
   def insert_event(db):
     try:
       created_event = db.events.insert_one({
-        'eventname': request.form['eventname'],
         'userId':request.form['userId'],
         'categoryId':request.form['categoryId'],
         'title':request.form['title'],
@@ -51,7 +50,6 @@ class EventController:
     try:
       updated_event = db.events.update_one({'_id': ObjectId(id)}, {
         '$set': {
-          'eventname': request.form['eventname'],
           'userId':request.form['userId'],
           'categoryId':request.form['categoryId'],
           'title':request.form['title'],
