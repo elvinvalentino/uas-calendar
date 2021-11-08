@@ -35,7 +35,8 @@ class EventController:
         'description':request.form['description'],
         'type':request.form['type'],
         'dateStart':request.form['dateStart'],
-        'duration':request.form['duration']
+        'duration':request.form['duration'],
+        'isAllDay':request.form['isAllDay'],
       })
       event = db.events.find_one({'_id': created_event.inserted_id})
 
@@ -56,7 +57,8 @@ class EventController:
           'description':request.form['description'],
           'type':request.form['type'],
           'dateStart':request.form['dateStart'],
-          'duration':request.form['duration']
+          'duration':request.form['duration'],
+          'isAllDay':request.form['isAllDay'],
         }
       })
       event = db.events.find_one({'_id': ObjectId(id)})
