@@ -29,7 +29,9 @@ class UserController:
   def insert_user(db):
     try:
       created_user = db.users.insert_one({
-        'email': request.form['email']
+        'email': request.form['email'],
+        'username': request.form['username'],
+        'profilePicture': request.form['profilePicture']
       })
       user = db.users.find_one({'_id': created_user.inserted_id})
 
@@ -43,7 +45,9 @@ class UserController:
     try:
       updated_user = db.users.update_one({'_id': ObjectId(id)}, {
         '$set': {
-          'email': request.form['email']
+          'email': request.form['email'],
+          'username': request.form['username'],
+          'profilePicture': request.form['profilePicture']
         }
       })
       user = db.users.find_one({'_id': ObjectId(id)})
