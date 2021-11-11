@@ -29,8 +29,10 @@ class CategoryController:
   def insert_category(db):
     try:
       created_category = db.categories.insert_one({
+        'userId':request.form['userId'],
         'name': request.form['name'],
-        'hex':request.form['hex']
+        'hex':request.form['hex'],
+        'isPreset': False
       })
       category = db.categories.find_one({'_id': created_category.inserted_id})
 
@@ -45,6 +47,7 @@ class CategoryController:
     try:
       updated_category = db.categories.update_one({'_id': ObjectId(id)}, {
         '$set': {
+          'userId':request.form['userId'],
           'name': request.form['name'],
           'hex':request.form['hex']
         }

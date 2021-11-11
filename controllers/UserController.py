@@ -2,6 +2,7 @@ from flask import request, jsonify
 from markupsafe import escape
 from utils.json_encode import json_encode
 from bson.objectid import ObjectId
+from utils.get_random import get_random_string
 
 
 class UserController:
@@ -28,12 +29,24 @@ class UserController:
   @staticmethod
   def insert_user(db):
     try:
+      ##token
+      at = get_random_string(32)
+
       created_user = db.users.insert_one({
         'email': request.form['email'],
         'username': request.form['username'],
-        'profilePicture': request.form['profilePicture']
+        'profilePicture': request.form['profilePicture'],
+        'accessToken': at
       })
       user = db.users.find_one({'_id': created_user.inserted_id})
+
+      ##preset
+      db.categories.insert_one({
+        'userId': created_user.inserted_id,
+        'name': 'appointment',
+        'hex': '#EB4A2F',
+        'isPreset': True
+      })
 
       return jsonify(json_encode(user))
 
