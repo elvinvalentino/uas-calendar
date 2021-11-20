@@ -48,8 +48,8 @@ class UserController:
       ##preset
       db.categories.insert_one({
         'userId': created_user.inserted_id,
-        'name': 'appointment',
-        'hex': '#EB4A2F',
+        'name': 'Appointment / task',
+        'hex': '#ccc',
         'isPreset': True
       })
 

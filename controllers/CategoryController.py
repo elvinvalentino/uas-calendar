@@ -75,6 +75,9 @@ class CategoryController:
       if category is None:
         raise NotFound
 
+      if category['isPreset'] == True:
+        return {'message': 'Cannot update this category'}
+
       db.categories.update_one({'_id': ObjectId(id)}, {
         '$set': {
           'name': request.form['name'],
@@ -103,9 +106,12 @@ class CategoryController:
       if category is None:
         raise NotFound
 
+      if category['isPreset'] == True:
+        return {'message': 'Cannot delete this category'}
+
       defaultCategory = db.categories.find_one({'userId': user['_id'], 'isPreset': True})
 
-      db.events.update_many({'category_id': category['_id']}, {
+      db.events.update_many({'categoryId': category['_id']}, {
         '$set': {
           'categoryId': defaultCategory['_id'],
         }
