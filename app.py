@@ -9,7 +9,7 @@ from dotenv import load_dotenv, dotenv_values
 config = dotenv_values('.env')
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = config['MONGO_URI']
+app.config["MONGO_URI"] = config['MONGO_URIS']
 mongo = PyMongo(app)
 db = mongo.db
 
