@@ -1,11 +1,24 @@
 from flask import request, jsonify
-from markupsafe import escape
+from expetions.token import InvlidToken, NoToken
+from utils.get_current_user import get_current_user
 from utils.json_encode import json_encode
 from bson.objectid import ObjectId
 from utils.get_random import get_random_string
 
 
 class UserController:
+  @staticmethod
+  def me(db):
+    try:
+      user = get_current_user(db)
+      return jsonify(json_encode(user))
+    except NoToken:
+      return {'message': 'No Token Provided'}, 400
+    except InvlidToken:
+      return {'message': 'Invalid Token'}, 400
+    except:
+      return {'message': 'An error occurred'}, 500
+
   @staticmethod
   def get_users(db):
     try:

@@ -11,6 +11,11 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 db = mongo.db
 
+@app.route("/api/me", methods=['GET'])
+def me():
+  if request.method == 'GET':
+    return UserController.me(db)
+
 ########################################################################
 # user
 ########################################################################
