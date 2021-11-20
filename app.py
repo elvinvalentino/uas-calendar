@@ -23,14 +23,14 @@ def user():
   elif request.method == 'POST':
     return UserController.insert_user(db)
 
-@app.route('/api/users/<id>', methods=['GET', 'PUT', 'DELETE'])
-def one_user(id):
-  if request.method == 'GET':
-    return UserController.get_one_user(db, id)
-  elif request.method == 'PUT':
-    return UserController.update_user(db, id)
-  elif request.method == 'DELETE':
-    return UserController.delete_user(db, id)
+# @app.route('/api/users/<id>', methods=['GET', 'PUT', 'DELETE'])
+# def one_user(id):
+#   if request.method == 'GET':
+#     return UserController.get_one_user(db, id)
+#   elif request.method == 'PUT':
+#     return UserController.update_user(db, id)
+#   elif request.method == 'DELETE':
+#     return UserController.delete_user(db, id)
 
 ################################################################################
 # events
@@ -59,13 +59,13 @@ def category():
   if request.method == 'GET':
     return CategoryController.get_categories(db)
   elif request.method == 'POST':
-    return CategoryController.insert_categories(db)
+    return CategoryController.insert_category(db)
 
 @app.route('/api/categories/<id>', methods=['GET', 'PUT', 'DELETE'])
 def one_category(id):
   if request.method == 'GET':
-    return CategoryController.get_one_categories(db, id)
+    return CategoryController.get_one_category(db, id)
   elif request.method == 'PUT':
-    return CategoryController.update_categories(db, id)
+    return CategoryController.update_category(db, id)
   elif request.method == 'DELETE':
-    return CategoryController.delete_categories(db, id)
+    return CategoryController.delete_category(db, id)

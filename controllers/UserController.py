@@ -10,8 +10,7 @@ class UserController:
   def get_users(db):
     try:
       users = db.users.find()
-      response = []
-      return jsonify([json_encode(user) for user in users])
+      return jsonify([json_encode(user, [], ['accessToken']) for user in users])
     except:
       return {'message': 'An error occurred'}, 500
 
@@ -21,7 +20,7 @@ class UserController:
   def get_one_user(db, id):
     try:
       user = db.users.find_one({'_id': ObjectId(id)})
-      return jsonify(json_encode(user))
+      return jsonify(json_encode(user, [], 'accessToken'))
     except:
       return {'message': 'An error occurred'}, 500
     
@@ -29,6 +28,12 @@ class UserController:
   @staticmethod
   def insert_user(db):
     try:
+      ## check if user is already exists or not
+      ## if exists returning the existing user
+      isExists = db.users.find_one({'email': request.form['email']})
+      if isExists is not None:
+        return jsonify(json_encode(isExists))
+
       ##token
       at = get_random_string(32)
 
