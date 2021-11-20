@@ -3,13 +3,11 @@ from flask_pymongo import PyMongo
 from controllers.UserController import UserController
 from controllers.EventController import EventController
 from controllers.CategoryController import CategoryController
-from dotenv import load_dotenv, dotenv_values
-
-# load_dotenv()
-config = dotenv_values('.env')
+# from dotenv import load_dotenv, dotenv_values
+import os
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = config['MONGO_URIS']
+app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 db = mongo.db
 
