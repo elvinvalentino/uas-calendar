@@ -103,6 +103,14 @@ class CategoryController:
       if category is None:
         raise NotFound
 
+      defaultCategory = db.categories.find_one({'userId': user['_id'], 'isPreset': True})
+
+      db.events.update_many({'category_id': category['_id']}, {
+        '$set': {
+          'categoryId': defaultCategory['_id'],
+        }
+      })
+
       db.categories.delete_one({'_id': ObjectId(id)})
       return {
         'message': 'Deleted successfully'
