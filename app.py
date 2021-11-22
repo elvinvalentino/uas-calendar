@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_pymongo import PyMongo
+from flask_cors import CORS
 from controllers.UserController import UserController
 from controllers.EventController import EventController
 from controllers.CategoryController import CategoryController
@@ -7,6 +8,7 @@ from controllers.CategoryController import CategoryController
 import os
 
 app = Flask(__name__)
+CORS(app)
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 db = mongo.db
