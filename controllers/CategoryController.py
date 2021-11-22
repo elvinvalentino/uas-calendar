@@ -50,8 +50,8 @@ class CategoryController:
 
       created_category = db.categories.insert_one({
         'userId':user['_id'],
-        'name': request.form['name'],
-        'hex':request.form['hex'],
+        'name': request.json['name'],
+        'hex':request.json['hex'],
         'isPreset': False
       })
       category = db.categories.find_one({'_id': created_category.inserted_id})
@@ -80,8 +80,8 @@ class CategoryController:
 
       db.categories.update_one({'_id': ObjectId(id)}, {
         '$set': {
-          'name': request.form['name'],
-          'hex':request.form['hex']
+          'name': request.json['name'],
+          'hex':request.json['hex']
         }
       })
       category = db.categories.find_one({'_id': ObjectId(id)})

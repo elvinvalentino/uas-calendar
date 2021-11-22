@@ -43,7 +43,7 @@ class UserController:
     try:
       ## check if user is already exists or not
       ## if exists returning the existing user
-      isExists = db.users.find_one({'email': request.form['email']})
+      isExists = db.users.find_one({'email': request.json['email']})
       if isExists is not None:
         return jsonify(json_encode(isExists))
 
@@ -51,9 +51,9 @@ class UserController:
       at = get_random_string(32)
 
       created_user = db.users.insert_one({
-        'email': request.form['email'],
-        'username': request.form['username'],
-        'profilePicture': request.form['profilePicture'],
+        'email': request.json['email'],
+        'username': request.json['username'],
+        'profilePicture': request.json['profilePicture'],
         'accessToken': at
       })
       user = db.users.find_one({'_id': created_user.inserted_id})
@@ -76,9 +76,9 @@ class UserController:
     try:
       updated_user = db.users.update_one({'_id': ObjectId(id)}, {
         '$set': {
-          'email': request.form['email'],
-          'username': request.form['username'],
-          'profilePicture': request.form['profilePicture']
+          'email': request.json['email'],
+          'username': request.json['username'],
+          'profilePicture': request.json['profilePicture']
         }
       })
       user = db.users.find_one({'_id': ObjectId(id)})

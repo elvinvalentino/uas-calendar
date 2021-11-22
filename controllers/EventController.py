@@ -54,19 +54,19 @@ class EventController:
     try:
       user = get_current_user(db)
 
-      category = db.categories.find_one({'_id': ObjectId(request.form['categoryId']), 'userId': user['_id']})
+      category = db.categories.find_one({'_id': ObjectId(request.json['categoryId']), 'userId': user['_id']})
       if category is None:
         return {'message': 'Category not found'}
 
       created_event = db.events.insert_one({
         'userId': user['_id'],
         'categoryId': category['_id'],
-        'title':request.form['title'],
-        'description':request.form['description'],
-        'type':request.form['type'],
-        'dateStart': datetime.strptime(request.form['dateStart'], '%Y-%m-%d %I:%M%z'),
-        'duration': int(request.form['duration']),
-        'isAllDay':True if request.form['isAllDay'] == 'true' else False,
+        'title':request.json['title'],
+        'description':request.json['description'],
+        'type':request.json['type'],
+        'dateStart': datetime.strptime(request.json['dateStart'], '%Y-%m-%d %I:%M%z'),
+        'duration': int(request.json['duration']),
+        'isAllDay':True if request.json['isAllDay'] == 'true' else False,
       })
       event = db.events.find_one({'_id': created_event.inserted_id})
 
@@ -94,7 +94,7 @@ class EventController:
       if event is None:
         raise NotFound
 
-      category = db.categories.find_one({'_id': ObjectId(request.form['categoryId']), 'userId': user['_id']})
+      category = db.categories.find_one({'_id': ObjectId(request.json['categoryId']), 'userId': user['_id']})
       if category is None:
         return {'message': 'Category not found'}
 
@@ -102,12 +102,12 @@ class EventController:
         '$set': {
           'userId': user['_id'],
           'categoryId':category['_id'],
-          'title':request.form['title'],
-          'description':request.form['description'],
-          'type':request.form['type'],
-          'dateStart':datetime.strptime(request.form['dateStart'], '%Y-%m-%d %I:%M%z'),
-          'duration':int(request.form['duration']),
-          'isAllDay':True if request.form['isAllDay'] == 'true' else False,
+          'title':request.json['title'],
+          'description':request.json['description'],
+          'type':request.json['type'],
+          'dateStart':datetime.strptime(request.json['dateStart'], '%Y-%m-%d %I:%M%z'),
+          'duration':int(request.json['duration']),
+          'isAllDay':True if request.json['isAllDay'] == 'true' else False,
         }
       })
 
