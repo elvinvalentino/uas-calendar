@@ -67,6 +67,7 @@ class EventController:
         'dateStart': datetime.strptime(request.json['dateStart'], '%Y-%m-%d %I:%M%z'),
         'duration': int(request.json['duration']),
         'isAllDay':True if request.json['isAllDay'] == 'true' else False,
+        'isDone':True if request.json['isDone'] == 'true' else False,
       })
       event = db.events.find_one({'_id': created_event.inserted_id})
 
@@ -108,6 +109,7 @@ class EventController:
           'dateStart':datetime.strptime(request.json['dateStart'], '%Y-%m-%d %I:%M%z'),
           'duration':int(request.json['duration']),
           'isAllDay':True if request.json['isAllDay'] == 'true' else False,
+          'isDone':True if request.json['isDone'] == 'true' else False,
         }
       })
 
