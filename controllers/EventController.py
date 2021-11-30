@@ -64,10 +64,10 @@ class EventController:
         'title':request.json['title'],
         'description':request.json['description'],
         'type':request.json['type'],
-        'dateStart': datetime.strptime(request.json['dateStart'], '%Y-%m-%d %I:%M%z'),
-        'dateEnd':datetime.strptime(request.json['dateEnd'], '%Y-%m-%d %I:%M%z'),
-        'isAllDay':True if request.json['isAllDay'] == 'true' else False,
-        'isDone':True if request.json['isDone'] == 'true' else False,
+        'dateStart': datetime.strptime(request.json['dateStart'], '%Y-%m-%d %H:%M%z'),
+        'dateEnd':datetime.strptime(request.json['dateEnd'], '%Y-%m-%d %H:%M%z'),
+        'isAllDay':request.json['isAllDay'],
+        'isDone':request.json['isDone'],
       })
       event = db.events.find_one({'_id': created_event.inserted_id})
 
@@ -82,8 +82,8 @@ class EventController:
       return {'message': 'Invalid Token'}, 400
     except NotFound:
       return {'message': 'Event not found'}, 404
-    except:
-      return {'message': 'An error occurred'}, 500
+    # except:
+    #   return {'message': 'An error occurred'}, 500
 
 
   @staticmethod
@@ -106,10 +106,10 @@ class EventController:
           'title':request.json['title'],
           'description':request.json['description'],
           'type':request.json['type'],
-          'dateStart':datetime.strptime(request.json['dateStart'], '%Y-%m-%d %I:%M%z'),
-          'dateEnd':datetime.strptime(request.json['dateEnd'], '%Y-%m-%d %I:%M%z'),
-          'isAllDay':True if request.json['isAllDay'] == 'true' else False,
-          'isDone':True if request.json['isDone'] == 'true' else False,
+          'dateStart':datetime.strptime(request.json['dateStart'], '%Y-%m-%d %H:%M%z'),
+          'dateEnd':datetime.strptime(request.json['dateEnd'], '%Y-%m-%d %H:%M%z'),
+          'isAllDay':request.json['isAllDay'],
+          'isDone':request.json['isDone'],
         }
       })
 
