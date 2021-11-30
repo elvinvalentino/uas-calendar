@@ -66,7 +66,6 @@ class EventController:
         'type':request.json['type'],
         'dateStart': datetime.strptime(request.json['dateStart'], '%Y-%m-%d %I:%M%z'),
         'dateEnd':datetime.strptime(request.json['dateEnd'], '%Y-%m-%d %I:%M%z'),
-        'duration': int(request.json['duration']),
         'isAllDay':True if request.json['isAllDay'] == 'true' else False,
         'isDone':True if request.json['isDone'] == 'true' else False,
       })
